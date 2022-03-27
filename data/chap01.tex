@@ -1,0 +1,62 @@
+% !TeX root = ../main.tex
+
+\chapter{模版说明}
+
+\section{格式标准}
+
+该模版按照~\cite{hdy2012311}要求的格式制作。
+参考文献的排版按照标准~\cite{gbt7714-2005}执行。
+
+\section{使用方法}
+
+下面介绍该模版的使用方法.
+
+\subsection{文件说明}
+
+该模版包含文件结构如表~\ref{tab:file}所示。
+
+\begin{table}[htp]
+    \centering
+    \caption{文件说明}
+    \begin{tabular}{ll}
+      \toprule
+      文件名          & 描述                         \\
+      \midrule
+      hduthesis.cls   & 模板文件                     \\
+      HDULOGO.pdf     & 学校标志的图片 \\
+      main.tex & 主文件 \\
+      ref.bib & BibTeX文件    \\
+      data/ & 包含具体TeX文件的文件夹 \\
+      figures/ & 默认用来存放图片的文件夹 \\
+      data/chap01.tex & 第一章的TeX文件（建议每章一个TeX文件）\\
+      data/abstract.tex & 中英文摘要 \\
+      data/acknowledgements.tex & 致谢 \\
+      data/appendix.tex & 附录 \\
+      \bottomrule
+    \end{tabular}
+    \label{tab:file}
+  \end{table}
+  
+\subsection{编译命令}
+
+推荐的编译命令为``\cmd{latexmk -xelatex -synctex=1 main.tex}''。
+``\cmd{latexmk}''命令的运行需要系统安装有Perl解释器。
+可以使用命令``\cmd{latexmk -C}''来删除编译产生的文件，可以使用命令``\cmd{latexmk -c}''来删除编译产生的临时文件。
+
+些或类似词语。
+
+\section{插图}
+
+图片通常在 \env{figure} 环境中使用 \cs{includegraphics} 插入，如图~\ref{fig:example} 的源代码。
+建议矢量图片使用 PDF 格式，比如数据可视化的绘图；
+照片应使用 JPG 格式；
+其他的栅格图应使用无损的 PNG 格式。
+注意，LaTeX 不支持 TIFF 格式；EPS 格式已经过时。
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{example-image-a.pdf}
+    \caption{示例图片标题}
+    \label{fig:example}
+\end{figure}
+  

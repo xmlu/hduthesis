@@ -1,0 +1,78 @@
+% !TEX program = xelatex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+% !BIB program = bibtex
+
+\documentclass[]{hduthesis}
+
+% ======= 根据自己需要加载相应宏包 ==========
+\usepackage{mathrsfs}       % 提供mathscr: 花体
+\usepackage{amsmath}        % AMSLaTeX宏包 用来排出更加漂亮的公式
+\usepackage{amssymb}        % ams数学符号
+\usepackage{physics}        % 物理常用符号
+\usepackage{threeparttable} % 表格加脚注
+\usepackage{booktabs}       % 表格，横的粗线；\specialrule{1pt}{0pt}{0pt}
+\usepackage{longtable}      %支持跨页的表格。
+% =================================
+
+% =================================
+% 定义所有的图片文件在 figures 子目录下
+% 如果图片放在主目录，则可以注释下面的命令
+\graphicspath{{figures/}}
+% =================================
+
+% =================================
+% 论文封面需要的基本信息配置
+% 注意：
+%   1. '\hdusetup'配置里面不要出现空行 （很重要，不然会编译出错！）
+%   2. 后面带*的是相应的英文参数。比如author是中文名，author*是英文名
+% =================================
+\hdusetup{
+    % 中文标题在封面上分为两行显示，分别为titleA和titleB。如果一行放得下，titleB留空白即可。
+    titleA  = {杭州电子科技大学硕士学位论文},
+    titleB  = {\LaTeX{} 模板使用示例文档 v\version},
+    title*  = {An Introduction to \LaTeX{} Thesis Template of Hangzhou Dianzi
+              University v\version},
+    % 专业
+    discipline  = {物理学},
+    discipline* = {Physics},
+    % 姓名
+    author  = {张三},
+    author* = {San Zhang},
+    % 指导教师，中文姓名和职称之间空格分开，下同
+    supervisor  = {李四\ 教授},
+    supervisor* = {Professor Si Li},
+    % 日期，如果不指定则默认显示编译当月
+    % date = {2022年4月},
+    % data* = {April, 2022}
+}
+% =================================
+
+\begin{document}
+
+\maketitle
+
+\frontmatter
+% 摘要
+\input{data/abstract}
+
+% 中文目录
+\tableofcontents    
+
+% 正文部分
+\mainmatter
+
+% 包含章节
+\input{data/chap01.tex}
+
+\phantomsection
+\addcontentsline{toc}{chapter}{\protect\numberline{参考文献}}
+\bibliographystyle{gbt7714-2005-numerical}
+\bibliography{ref}  % 参考文献BibTeX文件名称，默认为ref.bib
+
+% 附录，所发文章与参与项目
+\input{data/appendix.tex}  
+% 致谢
+\input{data/acknowledgements.tex} 
+
+\end{document}

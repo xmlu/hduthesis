@@ -25,7 +25,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{hduthesis}[2022/03/27 Hangzhou Dianzi University Thesis Template]
-\def\version{1}
+\def\version{1.0}
 
 % 正文字号为小四
 \LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese,twoside]{ctexbook}
@@ -609,6 +609,7 @@
 % ============================
 % 提供一些常用命令
 % ============================
+\DeclareRobustCommand\cmd[1]{\texttt{#1}}
 \DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
 \DeclareRobustCommand\file{\nolinkurl}
 \DeclareRobustCommand\env{\textsf}
