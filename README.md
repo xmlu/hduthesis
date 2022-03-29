@@ -7,8 +7,13 @@
 可以使用命令`latexmk -C`来删除编译产生的文件，可以使用命令`latexmk -c`来删除编译产生的临时文件。
 
 如果系统提示找对不`.bst`文件的话，需要安装`gbt7714`宏包：
+Linux或Mac OS操作系统上的TeXLive的话，在终端输入
 ``` bash
 sudo tlmgr install gbt7714
+```
+Window操作系统上的TeXLive，在CMD中输入
+```
+tlmgr install gbt7714
 ```
 
 ## 参考资料

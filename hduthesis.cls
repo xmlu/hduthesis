@@ -1,3 +1,6 @@
+% 杭州电子科技大学研究生论文LaTeX模版
+% 最新版的模版可以在此获得： https://gitee.com/xmlu/hduthesis
+
 % MIT License
 %
 % Copyright (c) 2019 Star Brilliant
