@@ -30,8 +30,10 @@
 \ProvidesClass{hduthesis}[2022/03/27 Hangzhou Dianzi University Thesis Template]
 \def\version{1.0}
 
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\ProcessOptions\relax
 % 正文字号为小四
-\LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese,twoside]{ctexbook}
+\LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese]{ctexbook}
 
 % 建议在模板开始处载入全部宏包，不要轻易改变加载顺序。
 % \pkg{hyperref} 一般在最后加载。
