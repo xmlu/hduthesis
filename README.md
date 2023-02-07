@@ -6,7 +6,7 @@
 `latexmk`命令的运行需要系统安装有Perl解释器。
 可以使用命令`latexmk -C`来删除编译产生的文件，可以使用命令`latexmk -c`来删除编译产生的临时文件。
 
-如果系统提示找对不`.bst`文件的话，需要安装`gbt7714`宏包：
+如果系统提示找不到`.bst`文件的话，需要安装`gbt7714`宏包：
 Linux或Mac OS操作系统上的TeXLive的话，在终端输入
 ``` bash
 sudo tlmgr install gbt7714
