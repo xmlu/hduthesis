@@ -4,6 +4,7 @@
 % !BIB program = bibtex
 
 \documentclass[twoside]{hduthesis}
+% 如果不需要双面打印时插入的空白页，可以将twoside选项改成oneside
 
 % ======= 根据自己需要加载相应宏包 ==========
 \usepackage{mathrsfs}       % 提供mathscr: 花体
@@ -65,8 +66,10 @@
 % 包含章节
 \input{data/chap01.tex}
 
-\phantomsection
-\addcontentsline{toc}{chapter}{\protect\numberline{参考文献}}
+% \phantomsection
+% \addcontentsline{toc}{chapter}{\protect\numberline{参考文献}}
+\clearpage
+\addcontentsline{toc}{chapter}{参考文献}
 \bibliographystyle{gbt7714-2005-numerical}
 \bibliography{ref}  % 参考文献BibTeX文件名称，默认为ref.bib
 
