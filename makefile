@@ -3,5 +3,5 @@ main:
 
 clean:
 	@echo "Cleaning..."
-	@$(RM) *.aux *.fls *.log *.ind *.out *.ilg *.idx *.toc *.blg *.bbl *. nlo *.xdv
+	latexmk -c
 	@echo "Done!"

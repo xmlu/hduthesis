@@ -16,6 +16,10 @@ Window操作系统上的TeXLive，在CMD中输入
 tlmgr install gbt7714
 ```
 
+字数统计可以使用如下命令:
+```
+texcount -total  data/*.tex
+```
 ## 参考资料
 
 - CTeX
