@@ -28,7 +28,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{hduthesis}[2022/03/27 Hangzhou Dianzi University Thesis Template]
-\def\version{1.2}
+\def\version{1.3}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
