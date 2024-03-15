@@ -446,6 +446,7 @@
 % 中文摘要环境
 % ============================
 \newenvironment{abstract}{
+    \pagestyle{plain}
     \chapter*{\centering\heiti\zihao{3}\selectfont{}摘~~~~要}
     \setcounter{page}{1}
     \addcontentsline{toc}{chapter}{摘要}
@@ -462,6 +463,7 @@
 % 英文摘要环境
 % ============================
 \newenvironment{abstract*}{
+    \pagestyle{plain}
     \chapter*{\centering\rmfamily\bfseries\zihao{3}\selectfont ABSTRACT}%
     \addcontentsline{toc}{chapter}{ABSTRACT}
     \rmfamily\zihao{-4}
