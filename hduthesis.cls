@@ -50,6 +50,7 @@
 \RequirePackage{kvsetkeys}
 \RequirePackage{kvoptions}
 \RequirePackage{caption}
+\RequirePackage{emptypage}
 % ==============================================
 % 字体设置
 % ==============================================
@@ -454,7 +455,7 @@
 }{
     \par\null\par\noindent\hangindent=4\ccwd\relax
     {\heiti 关键词}：\hdu@keywords\par
-    \clearpage
+    % \clearpage
 }
 
 % ============================
@@ -509,6 +510,7 @@
 % 重定义目录命令，修改标题格式并插入书签。
 \RenewDocumentCommand \tableofcontents { }
 {
+    \pagestyle{plain}
     \raggedbottom
     \ctexset{
         contentsname = {目\hspace{\ccwd}录},

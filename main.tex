@@ -13,7 +13,8 @@
 \usepackage{physics}        % 物理常用符号
 \usepackage{threeparttable} % 表格加脚注
 \usepackage{booktabs}       % 表格，横的粗线；\specialrule{1pt}{0pt}{0pt}
-\usepackage{longtable}      %支持跨页的表格。
+\usepackage{longtable}      % 支持跨页的表格。
+\usepackage{blindtext}      % 产生测试用的文字，实际使用中可删除
 % =================================
 
 % =================================
@@ -58,14 +59,15 @@
 \input{data/abstract}
 
 % 中文目录
-\tableofcontents    
+\tableofcontents 
 
 % 正文部分
 \mainmatter
 
 % 包含章节
 \input{data/chap01.tex}
-
+\chapter{test chapter}
+\blinddocument % 产生测试文本
 
 \clearpage
 
