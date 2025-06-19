@@ -306,7 +306,7 @@
             \HDUunderline[65mm]{\hdu@discipline} \\ 
             {\songti 所在学院：} &
             \HDUunderline[65mm]{\hdu@school} \\ 
-            {\songti 完成日期：} &
+            {\songti 完成时间：} &
             \HDUunderline[65mm]{\hdu@date}
         \end{tabular} 
         \renewcommand{\arraystretch}{1}
