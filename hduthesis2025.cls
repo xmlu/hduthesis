@@ -55,12 +55,26 @@
 % 添加参数
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{
-  family=hdu,
-  prefix=hdu@
+    family=hdu,
+    prefix=hdu@
 }
-% 添加 coverstyle 参数, 用于老封面和新封面的切换, 实际判断语句中只会检测是否是 legacy, 如果是则用老封面
-\DeclareStringOption[2025]{coverstyle}
+\DeclareBoolOption{legacy}
+\DeclareBoolOption{doctor}
+\DeclareBoolOption{applied}
 \ProcessKeyvalOptions*
+
+\ifhdu@doctor
+    \def\hdu@degreeLevel{博}
+\else
+    \def\hdu@degreeLevel{硕}
+\fi
+
+\ifhdu@applied
+    \def\hdu@degreeType{专业}
+\else
+    \def\hdu@degreeType{学术}
+\fi
+
 
 % ==============================================
 % 字体设置
@@ -231,15 +245,18 @@
     school = {
         default = {理学院},
     },
-    school* = {
-        default = {School of Sciences},
-        name    = school@en,
+    supervisorB = {
+        default = {},
     },
-    degreeType = {
-        default = {学术},
+    secretLevel = {
+        default = {},
     },
-    degreeLevel = {
-        default = {硕},
+    % 专业硕/博士学位论文参数
+    degreeCategory = {
+        default = {},
+    },
+    field = {
+        default = {}
     },
 }
 
@@ -266,11 +283,8 @@
 }    %如果想要居中对齐，则在#2\fhill前加入\fhill即可。
 \def\HDUunderline{\@ifnextchar[\HDU@underline\underline}
 
-
-\def\hdu@legacycover{legacy}
-\def\hdu@newcover{2025}
-%旧版封面 (2025 前)
-\ifx\hdu@coverstyle\hdu@legacycover
+% 旧版封面 (2025 前)
+\ifhdu@legacy
     \newcommand\hdu@cover{%
         \thispagestyle{empty}
         \vspace*{0.1cm}
@@ -321,17 +335,24 @@
 
 % 新版封面 (2025 年更新)
 \else
-    \newcommand\hdu@cover{%
+    \newcommand\hdu@cover{
         \thispagestyle{empty}
 
         \vspace*{-1cm}
         \noindent
-        \makebox[\textwidth]{%
-        \hspace*{0pt}
-        {\zihao{-4}学号：\HDUunderline[22mm]{\textsf{\hdu@studentID}}}
-        \hfill
-        {\zihao{-4}学校代码：\HDUunderline[22mm]{\textsf{10336}}}
+        \makebox[\textwidth]{
+            \hspace*{0pt}
+            {\zihao{-4}学号：\HDUunderline[22mm]{\textsf{\hdu@studentID}}}
+            \hfill
+            {\zihao{-4}学校代码：\HDUunderline[22mm]{\textsf{10336}}}
         }
+        \ifx\hdu@secretLevel\@empty\else
+            \makebox[\textwidth]{
+                \smallskip
+                \hspace*{0pt}
+                {\zihao{-4}密级：\HDUunderline[22mm]{\textsf{\hdu@secretLevel}}}\hfill
+            }
+        \fi
         \vspace{1cm} 
 
         \begin{center}
@@ -365,15 +386,26 @@
             \zihao{4}
             \renewcommand{\arraystretch}{1.5} 
             \begin{tabular}{ll}
-                {\songti 作者姓名：} & 
+                {\songti 作\hfill 者\hfill 姓\hfill 名：} & 
                 \HDUunderline[65mm]{\hdu@author} \\ 
-                {\songti 指导教师：} & 
+                {\songti 指\hfill 导\hfill 教\hfill 师：} & 
                 \HDUunderline[65mm]{\hdu@supervisor} \\ 
-                {\songti 专业名称：} & 
-                \HDUunderline[65mm]{\hdu@discipline} \\ 
-                {\songti 所在学院：} &
+                \ifx\hdu@supervisorB\@empty\else
+                    {\songti 第\hfill 二\hfill 导\hfill 师：} & 
+                    \HDUunderline[65mm]{\hdu@supervisorB} \\ 
+                \fi
+                \ifhdu@applied
+                    {专业学位类别：} & 
+                    \HDUunderline[65mm]{\hdu@degreeCategory} \\ 
+                    {专\hfill 业\hfill 领\hfill 域：} & 
+                    \HDUunderline[65mm]{\hdu@field} \\ 
+                \else
+                    {\songti 专\hfill 业\hfill 名\hfill 称：} & 
+                    \HDUunderline[65mm]{\hdu@discipline} \\ 
+                \fi
+                {\songti 所\hfill 在\hfill 学\hfill 院：} &
                 \HDUunderline[65mm]{\hdu@school} \\ 
-                {\songti 完成时间：} &
+                {\songti 完\hfill 成\hfill 时\hfill 间：} &
                 \HDUunderline[65mm]{\hdu@date}
             \end{tabular} 
             \renewcommand{\arraystretch}{1}

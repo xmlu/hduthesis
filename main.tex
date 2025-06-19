@@ -3,8 +3,11 @@
 % !TeX spellcheck = en_US
 % !BIB program = bibtex
 
-\documentclass[twoside, coverstyle=legacy]{hduthesis2025}
+\documentclass[twoside, legacy]{hduthesis2025}
 % 如果不需要双面打印时插入的空白页，可以将twoside选项改成oneside
+% 传入 legacy 切换到老版本封面, 老板封面只支持学术硕士
+% 传入 doctor 切换到博士学位论文 (只有副标题区别)
+% 传入 applied 切换到专业学位
 
 % ======= 根据自己需要加载相应宏包 ==========
 \usepackage{mathrsfs}       % 提供mathscr: 花体
@@ -51,12 +54,18 @@
     % ======== 以下为 2025 封面新增 ========
     % 学院
     school = {理学院},
-    school* = {School of Sciences},
     % 学号
     studentID = {}, % 默认留空
-    % 学位
-    degreeType = {学术}, % 学术 / 专业 (默认: 学术)
-    degreeLevel = {硕},  % 硕 / 博 (默认: 硕)
+    % 第二导师
+    % supervisorB = {王五\ 教授}, % 留空或缺省默认为无
+    %
+    % ======== 以下条目可能有格式错误, 若使用请仔细核对格式要求 ========
+    % 密级
+    secretLevel = {}, % 留空或缺省默认为无
+    % 专业学位类别
+    degreeCategory = {}, % 默认留空
+    % 专业领域
+    field = {}, % 默认留空
 }
 % =================================
 
