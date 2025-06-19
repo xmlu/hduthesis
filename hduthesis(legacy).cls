@@ -27,8 +27,8 @@
 % 格式要求见《杭州电子科技大学研究生学位论文格式统一要求》（杭电研[2012]311号）
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{hduthesis2025}[2025/05/20 Hangzhou Dianzi University Thesis Template]
-\def\version{1.3.25}
+\ProvidesClass{hduthesis}[2022/03/27 Hangzhou Dianzi University Thesis Template]
+\def\version{1.3}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
@@ -51,31 +51,6 @@
 \RequirePackage{kvoptions}
 \RequirePackage{caption}
 \RequirePackage{emptypage}
-
-% 添加参数
-\RequirePackage{kvoptions}
-\SetupKeyvalOptions{
-    family=hdu,
-    prefix=hdu@
-}
-\DeclareBoolOption{legacy}
-\DeclareBoolOption{doctor}
-\DeclareBoolOption{applied}
-\ProcessKeyvalOptions*
-
-\ifhdu@doctor
-    \def\hdu@degreeLevel{博}
-\else
-    \def\hdu@degreeLevel{硕}
-\fi
-
-\ifhdu@applied
-    \def\hdu@degreeType{专业}
-\else
-    \def\hdu@degreeType{学术}
-\fi
-
-
 % ==============================================
 % 字体设置
 % ==============================================
@@ -238,26 +213,6 @@
     keywords* = {
         name = keywords@en,
     },
-    % 2025 封面新增选项
-    studentID = {
-        default = {},
-    },
-    school = {
-        default = {理学院},
-    },
-    supervisorB = {
-        default = {},
-    },
-    secretLevel = {
-        default = {},
-    },
-    % 专业硕/博士学位论文参数
-    degreeCategory = {
-        default = {},
-    },
-    field = {
-        default = {}
-    },
 }
 
 % ============================================================
@@ -282,137 +237,53 @@
     \underline{\hbox to #1{\hfill#2\hfill}}
 }    %如果想要居中对齐，则在#2\fhill前加入\fhill即可。
 \def\HDUunderline{\@ifnextchar[\HDU@underline\underline}
+\newcommand\hdu@cover{%
+    \thispagestyle{empty}
+    \vspace*{0.1cm}
 
-% 旧版封面 (2025 前)
-\ifhdu@legacy
-    \newcommand\hdu@cover{%
-        \thispagestyle{empty}
-        \vspace*{0.1cm}
+    \begin{center}
+        \hfill\includegraphics[width=135mm]{HDULOGO.pdf}\hfill
+    \end{center}
+    \begin{center}
+        {\songti\zihao{2}\bfseries 硕\quad 士\quad 学\quad 位\quad 论\quad 文\par}
+    \end{center}
 
+    \vspace{18mm}
+    
+    \parbox[t][4cm][t]{\textwidth}{ 
         \begin{center}
-            \hfill\includegraphics[width=135mm]{HDULOGO.pdf}\hfill
-        \end{center}
-        \begin{center}
-            {\songti\zihao{2}\bfseries 硕\quad 士\quad 学\quad 位\quad 论\quad 文\par}
-        \end{center}
-
-        \vspace{18mm}
-        
-        \parbox[t][4cm][t]{\textwidth}{ 
-            \begin{center}
-                \zihao{-2}
-                \begin{tabular}{lc}
-                    {\songti\bfseries 题~~~~目：} & 
-                    \underline{\makebox[250pt]{\kaishu \hdu@titleA }} \\[2mm]
-                    & \HDUunderline[250pt]{\kaishu \hdu@titleB}
-                \end{tabular}
-            \end{center} 
-        }
-
-        \parbox[t][5.8cm][t]{\textwidth}{
-            \zihao{3}
-            \begin{center} 
-                \renewcommand{\arraystretch}{1.5} 
-                \begin{tabular}{ll}
-                    {\songti\bfseries 研\hfill 究\hfill 生} & 
-                    \HDUunderline[220pt]{\kaishu \hdu@author} \\ 
-                    {\songti\bfseries 专\hfill 业}  & 
-                    \HDUunderline[220pt]{\kaishu \hdu@discipline} \\
-                    {\songti\bfseries 指导教师} & 
-                    \HDUunderline[220pt]{\kaishu \hdu@supervisor}
-                \end{tabular} 
-                \renewcommand{\arraystretch}{1}
-            \end{center} 
-        }
-
-        \parbox[t][1.4cm][t]{\textwidth}{
-            \begin{center}
-                \songti\zihao{4}\textbf{完成日期}
-                \HDUunderline[150pt]{\kaishu \quad \hdu@date\quad}
-            \end{center} 
-        }
+            \zihao{-2}
+            \begin{tabular}{lc}
+                {\songti\bfseries 题~~~~目：} & 
+                \underline{\makebox[250pt]{\kaishu \hdu@titleA }} \\[2mm]
+                & \HDUunderline[250pt]{\kaishu \hdu@titleB}
+            \end{tabular}
+        \end{center} 
     }
 
-% 新版封面 (2025 年更新)
-\else
-    \newcommand\hdu@cover{
-        \thispagestyle{empty}
-
-        \vspace*{-1cm}
-        \noindent
-        \makebox[\textwidth]{
-            \hspace*{0pt}
-            {\zihao{-4}学号：\HDUunderline[22mm]{\textsf{\hdu@studentID}}}
-            \hfill
-            {\zihao{-4}学校代码：\HDUunderline[22mm]{\textsf{10336}}}
-        }
-        \ifx\hdu@secretLevel\@empty\else
-            \makebox[\textwidth]{
-                \smallskip
-                \hspace*{0pt}
-                {\zihao{-4}密级：\HDUunderline[22mm]{\textsf{\hdu@secretLevel}}}\hfill
-            }
-        \fi
-        \vspace{1cm} 
-
-        \begin{center}
-            \noindent
-            \renewcommand{\arraystretch}{2.5} 
-            \begin{tabular}{c}
-                \includegraphics[width=135mm]{HDULOGO.pdf}\\
-                \noindent{\heiti\zihao{1} \hdu@degreeLevel~~士~~学~~位~~论~~文}\\
-                \noindent{\zihao{-1}（\hdu@degreeType 学位）}\\
-            \end{tabular}
-            \renewcommand{\arraystretch}{1}
-
-            \vspace{0.2cm} 
-            \includegraphics[width=28mm]{HDUEMBLEM.pdf}
-        \end{center}
-
-        \hspace*{-5mm} 
-        \parbox[t][4cm][t]{\textwidth}{ 
-            \centering
-            \zihao{3}
-            \begin{tabular}{lc}
-                {\songti\bfseries 论文题目：} & 
-                \underline{\makebox[250pt]{\bfseries \hdu@titleA }} \\[2mm]
-                & \HDUunderline[250pt]{\bfseries \hdu@titleB}
-            \end{tabular}
-        }
-
-        \hspace*{-5mm} 
-        \parbox{\textwidth}{
-            \centering
-            \zihao{4}
+    \parbox[t][5.8cm][t]{\textwidth}{
+        \zihao{3}
+        \begin{center} 
             \renewcommand{\arraystretch}{1.5} 
             \begin{tabular}{ll}
-                {\songti 作\hfill 者\hfill 姓\hfill 名：} & 
-                \HDUunderline[65mm]{\hdu@author} \\ 
-                {\songti 指\hfill 导\hfill 教\hfill 师：} & 
-                \HDUunderline[65mm]{\hdu@supervisor} \\ 
-                \ifx\hdu@supervisorB\@empty\else
-                    {\songti 第\hfill 二\hfill 导\hfill 师：} & 
-                    \HDUunderline[65mm]{\hdu@supervisorB} \\ 
-                \fi
-                \ifhdu@applied
-                    {专业学位类别：} & 
-                    \HDUunderline[65mm]{\hdu@degreeCategory} \\ 
-                    {专\hfill 业\hfill 领\hfill 域：} & 
-                    \HDUunderline[65mm]{\hdu@field} \\ 
-                \else
-                    {\songti 专\hfill 业\hfill 名\hfill 称：} & 
-                    \HDUunderline[65mm]{\hdu@discipline} \\ 
-                \fi
-                {\songti 所\hfill 在\hfill 学\hfill 院：} &
-                \HDUunderline[65mm]{\hdu@school} \\ 
-                {\songti 完\hfill 成\hfill 时\hfill 间：} &
-                \HDUunderline[65mm]{\hdu@date}
+                {\songti\bfseries 研\hfill 究\hfill 生} & 
+                \HDUunderline[220pt]{\kaishu \hdu@author} \\ 
+                {\songti\bfseries 专\hfill 业}  & 
+                \HDUunderline[220pt]{\kaishu \hdu@discipline} \\
+                {\songti\bfseries 指导教师} & 
+                \HDUunderline[220pt]{\kaishu \hdu@supervisor}
             \end{tabular} 
             \renewcommand{\arraystretch}{1}
-        }
+        \end{center} 
     }
-\fi
 
+    \parbox[t][1.4cm][t]{\textwidth}{
+        \begin{center}
+            \songti\zihao{4}\textbf{完成日期}
+            \HDUunderline[150pt]{\kaishu \quad \hdu@date\quad}
+        \end{center} 
+    }
+}
 
 % ==================
 % 中文扉页
