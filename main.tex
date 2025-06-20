@@ -3,8 +3,11 @@
 % !TeX spellcheck = en_US
 % !BIB program = bibtex
 
-\documentclass[twoside]{hduthesis}
+\documentclass[twoside, legacy]{hduthesis}
 % 如果不需要双面打印时插入的空白页，可以将twoside选项改成oneside
+% 传入 legacy 切换到老版本封面, 老板封面只支持学术硕士
+% 传入 doctor 切换到博士学位论文 (只有副标题和页眉区别, 博士论文格式未经检验, 请仔细核对格式要求)
+% 传入 applied 切换到专业学位 (专业学位论文格式未经检验, 请仔细核对格式要求)
 
 % ======= 根据自己需要加载相应宏包 ==========
 \usepackage{mathrsfs}       % 提供mathscr: 花体
@@ -31,22 +34,36 @@
 % =================================
 \hdusetup{
     % 中文标题在封面上分为两行显示，分别为titleA和titleB。如果一行放得下，titleB留空白即可。
-    titleA  = {杭州电子科技大学硕士学位论文},
+    titleA  = {杭州电子科技大学学位论文},
     titleB  = {\LaTeX{} 模板使用示例文档 v\version},
     title*  = {An Introduction to \LaTeX{} Thesis Template of Hangzhou Dianzi
               University v\version},
-    % 专业
+    % 专业名称 (学术学位)
     discipline  = {物理学},
     discipline* = {Physics},
-    % 姓名
+    % 作者姓名
     author  = {张三},
     author* = {San Zhang},
     % 指导教师，中文姓名和职称之间空格分开，下同
     supervisor  = {李四\ 教授},
     supervisor* = {Professor Si Li},
-    % 日期，如果不指定则默认显示编译当月
+    % 完成时间，如果不指定则默认显示编译当月
     % date = {2022年4月},
     % data* = {April, 2022}
+    % 
+    % ======== 以下为 2025 封面新增 ========
+    % 学院
+    school = {理学院},
+    % 学号
+    studentID = {}, % 默认留空
+    % 第二导师
+    supervisorB = {}, % 默认无此条目
+    % 密级
+    secretLevel = {}, % 默认无此条目
+    % 专业学位类别 (专业学位)
+    degreeCategory = {}, % 默认留空
+    % 专业领域 (专业学位)
+    field = {}, % 默认留空
 }
 % =================================
 
