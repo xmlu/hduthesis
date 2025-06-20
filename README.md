@@ -1,29 +1,66 @@
-# 杭州电子科技大学研究生论文LaTeX模版
 
-格式要求见《杭州电子科技大学研究生学位论文格式统一要求》（杭电研[2012]311号）
 
-推荐的编译命令为`latexmk -xelatex -synctex=1 main.tex`。
-`latexmk`命令的运行需要系统安装有Perl解释器。
-可以使用命令`latexmk -C`来删除编译产生的文件，可以使用命令`latexmk -c`来删除编译产生的临时文件。
+杭州电子科技大学研究生论文LaTeX模版
+---
 
-如果系统提示找不到`.bst`文件的话，需要安装`gbt7714`宏包：
-Linux或Mac OS操作系统上的TeXLive的话，在终端输入
-``` bash
-sudo tlmgr install gbt7714
-```
-Window操作系统上的TeXLive，在CMD中输入
-```
-tlmgr install gbt7714
-```
+这是一个为杭州电子科技大学研究生撰写论文而设计的LaTeX模版，帮助用户遵循学校关于论文格式的相关规定。该模版包含了论文的基本结构以及一些常用的配置，方便用户快速开始撰写。
 
-字数统计可以使用如下命令:
-```
-texcount -total  data/*.tex
-```
-## 参考资料
+### 项目结构
 
-- CTeX
-- 清华大学学位论文模版thuthesis
-- 南京大学学位论文模版NJUthesis
-- 中国科学技术大学学位论文模版ustcthesis
-- 杭州电子科技大学之前的硕士学位论文模版
+- `README.md`: 本文件，提供项目的基本说明。
+- `data/abstract.tex`: 摘要部分的LaTeX代码。
+- `data/acknowledgements.tex`: 致谢部分的LaTeX代码。
+- `data/appendix.tex`: 附录部分的LaTeX代码。
+- `data/chap01.tex`: 第一章内容的LaTeX代码。
+- `hduthesis.cls`: 论文模版的类文件，定义了整体格式和样式。
+- `main.tex`: 论文的主LaTeX文件，通常包含引入其他章节和整体框架。
+- `makefile`: 构建脚本，用于自动化编译LaTeX文件。
+- `.gitignore`: 指定Git版本控制中忽略的文件或目录。
+- `HDULOGO.pdf`: 可能是学校Logo的PDF文件，用于论文封面。
+- `LICENSE`: 项目遵循的开源许可证。
+
+### 使用说明
+
+1. **安装LaTeX环境**  
+   确保你的系统已经安装了LaTeX发行版（如TeX Live或MiKTeX）以及一个合适的编辑器（如TeXStudio或VS Code的LaTeX插件）。
+
+2. **下载模版**  
+   将本仓库完整克隆到本地：
+   ```
+   git clone https://gitee.com/your-repo-url.git
+   ```
+
+3. **编译论文**  
+   使用`makefile`来编译主文件：
+   ```
+   make
+   ```
+   或者直接运行：
+   ```
+   pdflatex main.tex
+   bibtex main
+   pdflatex main.tex
+   pdflatex main.tex
+   ```
+   这会生成`main.pdf`，即你的最终论文文件。
+
+4. **自定义内容**  
+   修改`data/abstract.tex`、`data/acknowledgements.tex`、`data/appendix.tex`和`data/chap01.tex`中的内容，以满足你的论文需要。同时，确保`hduthesis.cls`中的格式符合学校最新要求。
+
+### 贡献指南
+
+欢迎为本项目提供改进，例如优化格式定义、添加示例内容或修复错误。你可以通过以下步骤提交贡献：
+
+1. Fork本仓库。
+2. 创建新分支：`git checkout -b feature/your-feature-name`.
+3. 提交更改：`git commit -m "Add new feature"`.
+4. Push到远程分支：`git push origin feature/your-feature-name`.
+5. 提交Pull Request。
+
+### 许可证
+
+本项目遵循 MIT 许可证。有关更多详细信息，请参阅[MIT License](LICENSE)。
+
+### 参考资料
+
+请查阅杭州电子科技大学研究生院发布的论文撰写规范，以及LaTeX官方文档以更好地理解和使用本模版。
