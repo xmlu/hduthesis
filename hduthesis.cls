@@ -65,8 +65,10 @@
 
 \ifhdu@doctor
     \def\hdu@degreeLevel{博}
+    \def\hdu@degreeLevelEN{Doctor}
 \else
     \def\hdu@degreeLevel{硕}
+    \def\hdu@degreeLevelEN{Master}
 \fi
 
 \ifhdu@applied
@@ -115,7 +117,7 @@
 % =======================
 \fancypagestyle{plain}{
     \fancyhf{}
-    \fancyhead[C]{\songti \zihao{5} \selectfont 杭州电子科技大学硕士学位论文}%
+    \fancyhead[C]{\songti \zihao{5} \selectfont 杭州电子科技大学\hdu@degreeLevel 士学位论文}%
     \fancyfoot[C,C]{\zihao{5} ~\thepage~}
 }
 
@@ -251,7 +253,7 @@
     secretLevel = {
         default = {},
     },
-    % 专业硕/博士学位论文参数
+    % 专业硕士/博士学位论文参数
     degreeCategory = {
         default = {},
     },
@@ -293,7 +295,7 @@
             \hfill\includegraphics[width=135mm]{HDULOGO.pdf}\hfill
         \end{center}
         \begin{center}
-            {\songti\zihao{2}\bfseries 硕\quad 士\quad 学\quad 位\quad 论\quad 文\par}
+            {\songti\zihao{2}\bfseries \hdu@degreeLevel\quad 士\quad 学\quad 位\quad 论\quad 文\par}
         \end{center}
 
         \vspace{18mm}
@@ -425,7 +427,7 @@
         \vspace*{0.5mm}
         \parbox[t][2.4cm][t]{\textwidth}{
             \begin{center}
-                \songti\zihao{2}\textbf{杭州电子科技大学硕士学位论文}
+                \songti\zihao{2}\textbf{杭州电子科技大学\hdu@degreeLevel 士学位论文}
             \end{center} 
         }
 
@@ -473,7 +475,7 @@
             \begin{center} 
                 \linespread{1.5} %1.5倍行距
                 {\zihao{4}\bfseries\rmfamily Dissertation Submitted for Hangzhou Dianzi University \\
-                for the Degree of Master} \par
+                for the Degree of \hdu@degreeLevelEN} \par
             \end{center} 
         } 
 
