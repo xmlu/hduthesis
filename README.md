@@ -25,7 +25,8 @@
    确保你的系统已经安装了LaTeX发行版（如TeX Live或MiKTeX）以及一个合适的编辑器（如VS Code的LaTeX插件）。
 
 2. **下载模版**  
-   将本仓库完整克隆到本地：
+   [下载zip包](https://gitee.com/xmlu/hduthesis/repository/archive/master.zip)或使用Git克隆本仓库。
+   如果你使用Git，可以运行以下命令：
    ```
    git clone https://gitee.com/xmlu/hduthesis.git
    ```
