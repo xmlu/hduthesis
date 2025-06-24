@@ -15,19 +15,19 @@
 - `hduthesis.cls`: 论文模版的类文件，定义了整体格式和样式。
 - `main.tex`: 论文的主LaTeX文件，通常包含引入其他章节和整体框架。
 - `makefile`: 构建脚本，用于自动化编译LaTeX文件。
-- `.gitignore`: 指定Git版本控制中忽略的文件或目录。
-- `HDULOGO.pdf`: 可能是学校Logo的PDF文件，用于论文封面。
+- `HDUEMBLEM.pdf`: 校徽PDF文件，用于论文封面。
+- `HDULOGO.pdf`: 校名PDF文件，用于论文封面。
 - `LICENSE`: 项目遵循的开源许可证。
 
 ### 使用说明
 
 1. **安装LaTeX环境**  
-   确保你的系统已经安装了LaTeX发行版（如TeX Live或MiKTeX）以及一个合适的编辑器（如TeXStudio或VS Code的LaTeX插件）。
+   确保你的系统已经安装了LaTeX发行版（如TeX Live或MiKTeX）以及一个合适的编辑器（如VS Code的LaTeX插件）。
 
 2. **下载模版**  
    将本仓库完整克隆到本地：
    ```
-   git clone https://gitee.com/your-repo-url.git
+   git clone https://gitee.com/xmlu/hduthesis.git
    ```
 
 3. **编译论文**  
@@ -37,10 +37,10 @@
    ```
    或者直接运行：
    ```
-   pdflatex main.tex
+   xelatex main.tex
    bibtex main
-   pdflatex main.tex
-   pdflatex main.tex
+   xelatex main.tex
+   xelatex main.tex
    ```
    这会生成`main.pdf`，即你的最终论文文件。
 
