@@ -41,7 +41,7 @@ texcount -total data/*.tex
    确保你的系统已经安装了 LaTeX 发行版（推荐 TeX Live 和 MacTeX）以及一个合适的编辑器（如 VS Code 配合 LaTeX Workshop 插件）。
 
 2. **下载模版**  
-   [下载zip包](https://gitee.com/xmlu/hduthesis/repository/archive/master.zip)或使用 Git 克隆本仓库。
+   [下载 zip 包](https://gitee.com/xmlu/hduthesis/repository/archive/master.zip)或使用 Git 克隆本仓库。
    如果你使用 Git，可以运行以下命令：
    ```
    git clone https://gitee.com/xmlu/hduthesis.git
@@ -67,7 +67,7 @@ texcount -total data/*.tex
 - **参考文献作者姓名大小写问题**：根据《杭州电子科技大学研究生学位论文格式统一要求》（杭电研 [2012] 311 号），参考文献著录应遵循 GB/T 7714-2005《文后参考文献著录规则》。
 在该标准中，对作者姓名的大小写未作明确规定，可采用首字母大写或全部大写。
 依据现行标准 GB/T 7714-2015，作者姓名应全部大写。
-本模板默认采用作者姓名全部大写的格式。如需将作者姓名修改为首字母大写，可在模板中自行调整。（最后更新：2025 年 9 月 11 日）
+本模板只支持作者姓名全部大写的格式，如需将作者姓名修改为首字母大写，请自行调整。（最后更新：2025 年 9 月 11 日）
 
 ## 参考资料
 
