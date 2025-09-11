@@ -51,6 +51,7 @@
 \RequirePackage{kvoptions}
 \RequirePackage{caption}
 \RequirePackage{emptypage}
+\RequirePackage{ifplatform}
 
 % 添加参数
 \RequirePackage{kvoptions}
@@ -81,6 +82,10 @@
 % ==============================================
 % 字体设置
 % ==============================================
+\ifwindows
+  \setCJKfamilyfont{song}{SimSun}[AutoFakeBold=3]
+  \renewcommand*{\songti}{\CJKfamily{song}}
+\fi
 
 % ctex已经定义了songti, heiti, fangsong, kaishu. 
 % ctex定义命令 \zihao {⟨字号⟩}，负号代表小，如\zihao{-4}为小四字号
