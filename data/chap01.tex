@@ -4,26 +4,23 @@
 
 \section{格式标准}
 
-该模版按照~\cite{hdy2012311}要求的格式制作。
-参考文献的排版按照标准~\cite{gbt7714-2005}执行。
+该模版按照《杭州电子科技大学研究生学位论文格式统一要求》（杭电研 [2012] 311 号）~\cite{hdy2012311}要求的格式制作。
+参考文献的排版按照 GB/T 7714-2005《文后参考文献著录规则》~\cite{gbt7714-2005}执行。
 
-\section{使用方法}
+\section{文件说明}
 
-下面介绍该模版的使用方法.
-
-\subsection{文件说明}
-
-该模版包含文件结构如表~\ref{tab:file}所示。
+该模版包含文件结构如表~\ref{tab:file} 所示。
 
 \begin{table}[htp]
     \centering
     \caption{文件说明}
-    \begin{tabular}{ll}
+    \begin{tabularx}{\linewidth}{Xl}
       \toprule
       文件名          & 描述                         \\
       \midrule
       hduthesis.cls   & 模板文件                     \\
       HDULOGO.pdf     & 学校标志的图片 \\
+      HDUEMBLEM.pdf   & 学校校徽图片 \\
       main.tex & 主文件 \\
       ref.bib & BibTeX文件    \\
       data/ & 包含具体TeX文件的文件夹 \\
@@ -33,15 +30,42 @@
       data/acknowledgements.tex & 致谢 \\
       data/appendix.tex & 附录 \\
       \bottomrule
-    \end{tabular}
+    \end{tabularx}
     \label{tab:file}
   \end{table}
-  
-\subsection{编译命令}
+
+
+\section{编译命令}
 
 推荐的编译命令为``\cmd{latexmk -xelatex -synctex=1 main.tex}''。
 ``\cmd{latexmk}''命令的运行需要系统安装有Perl解释器。
 可以使用命令``\cmd{latexmk -C}''来删除编译产生的文件，可以使用命令``\cmd{latexmk -c}''来删除编译产生的临时文件。
+
+也可以使用 ``\cmd{make}'' 来编译主文件（需要安装 GNU make 工具）。
+或者直接使用 VS Code 的 ``\cmd{Recipe: latexmk (xelatex)}'' 选项（需要安装 LaTeX Workshop 插件）。
+
+
+\section{\texttt{documentclass} 的参数}
+
+在使用 \verb|\documentclass[options]{hduthesis}| 来使用本模板时，可以传入的参数如表~\ref{tab:options} 所示。注意，Times 系列字体字宽不同，来回切换可能会影响排版。
+\begin{table}[htp]
+  \centering
+  \caption{参数说明}
+  \begin{tabularx}{\linewidth}{Xl}
+    \toprule
+    参数名          & 描述 \\
+    \midrule
+    twoside & 开启双面打印时插入的空白页，可以传入 oneside 关闭 \\
+    legacy  & 传入可切换到老版本封面，老版封面只支持学术硕士 \\
+    doctor  & 传入可切换到博士学位论文模板 \\
+    applied & 传入可切换到专业学位模板 \\
+    times   & 传入可将正文字体换为 Times 系列字体 \\
+    \bottomrule
+  \end{tabularx}
+  \label{tab:options}
+\end{table}
+
+
 
 \section{插图}
 
@@ -51,10 +75,64 @@
 其他的栅格图应使用无损的 PNG 格式。
 注意，LaTeX 不支持 TIFF 格式；EPS 格式已经过时。
 
-\begin{figure}
+如果论文较长、图片较多，可以将图片转换为 PDF 格式以提高编译速度（详见 \href{https://docs.overleaf.com/troubleshooting-and-support/fixing-and-preventing-compile-timeouts/optimising-very-large-image-files}{Overleaf 的帮助文档}）。
+
+\begin{figure}[htp]
     \centering
-    \includegraphics[width=0.5\linewidth]{example-image-a.pdf}
+    \includegraphics[width=0.6\linewidth]{example-image-a.pdf}
     \caption{示例图片标题}
     \label{fig:example}
 \end{figure}
+
+
+\section{字体说明}
+
+根据《杭州电子科技大学研究生学位论文格式统一要求》（杭电研 [2012] 311 号）~\cite{hdy2012311}，学位论文中的英文字体应该采用 Times New Roman 字体，中文字体应该为宋体。
+\LaTeX 采用的默认字体一般为 Computer Modern 或 Latin Modern 系列字体，实际上和 Times New Roman 有一些区别。
+
+本模板在启用 ``\cmd{times}'' 参数时，会通过 \verb|\usepackage{times}| 将正文字体切换为类似 Times New Roman 的效果。
+严格来说，该宏包实际使用的是 PostScript Times Roman 字体，并不完全等同于 Times New Roman。
+
+本模板中数学公式默认使用 \LaTeX 的 Computer Modern（或 Latin Modern）字体。
+得益于 TeX 系统和美国数学会（AMS）的推广，\LaTeX 的数学排版已成为事实标准。
+由于官方文件~\cite{hdy2012311}并未对公式字体作出规定，本模板沿用默认字体以保证公式的美观与可读性。
+
+之所以不使用 ``\verb|\setmainfont{Times New Roman}|'' 来切换字体，是因为该命令实际上是调用了系统字体，在不同的平台上可能潜在问题。
+同时，使用该命令切换后，公式字体中的正体部分也会被切换为 Times New Roman 字体，影响原本 \LaTeX 的数学排版。
+
+
+
+\section{常见问题}
+
+\begin{itemize}
+  \item [Q1:] 
+    参考文献作者姓名是全大写的，怎么更改为仅首字大写的样式？
+  \item [A1:] 
+    根据《杭州电子科技大学研究生学位论文格式统一要求》（杭电研 [2012] 311 号）~\cite{hdy2012311}，参考文献著录应遵循 GB/T 7714-2005《文后参考文献著录规则》~\cite{gbt7714-2005}。
+    在该标准中，对作者姓名的大小写未作明确规定，可采用首字母大写或全部大写。
+    依据现行标准 GB/T 7714-2015，作者姓名应全部大写。
+    本模板只支持作者姓名全部大写的格式，如需将作者姓名修改为首字母大写，请自行调整。（最后更新：2025 年 9 月 11 日）
+
+  \bigskip
+  \item [Q2:] 
+    生成的参考文献中出现了多余的 URL 和 DOI 信息。
+  \item [A2:]
+    手动在\ .bib 文件中删掉 URL 和 DOI 条目。
+
+  \bigskip
+  \item [Q3:]
+    注音字母怎么没有大写？
+    例如 Cram\'er 为什么显示为了 CRAM\'eR?
+  \item [A3:]
+    请在\ .bib 文件中把注音字母 \texttt{\'e} 换为 \verb|\'e|
   
+\end{itemize}
+
+
+\section{测试平台}
+
+\begin{itemize}
+  \item Windows 10 22H2; XeTeX 3.141592653-2.6-0.999994 (TeX Live 2022)
+  \item macOS
+  \item Ubuntu 
+\end{itemize}

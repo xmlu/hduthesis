@@ -27,13 +27,13 @@
 % 格式要求见《杭州电子科技大学研究生学位论文格式统一要求》（杭电研[2012]311号）
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{hduthesis}[2025/06/19 Hangzhou Dianzi University Thesis Template]
-\def\version{1.4}
+\ProvidesClass{hduthesis}[2026/01/07 Hangzhou Dianzi University Thesis Template]
+\def\version{1.41}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
 % 正文字号为小四
-\LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese]{ctexbook}
+\LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese,fontset=fandol]{ctexbook}
 
 % 建议在模板开始处载入全部宏包，不要轻易改变加载顺序。
 % \pkg{hyperref} 一般在最后加载。
@@ -51,7 +51,6 @@
 \RequirePackage{kvoptions}
 \RequirePackage{caption}
 \RequirePackage{emptypage}
-\RequirePackage{ifplatform}
 
 % 添加参数
 \RequirePackage{kvoptions}
@@ -62,6 +61,7 @@
 \DeclareBoolOption{legacy}
 \DeclareBoolOption{doctor}
 \DeclareBoolOption{applied}
+\DeclareBoolOption{times}
 \ProcessKeyvalOptions*
 
 \ifhdu@doctor
@@ -78,14 +78,15 @@
     \def\hdu@degreeType{学术}
 \fi
 
-
 % ==============================================
 % 字体设置
 % ==============================================
-\ifwindows
-  \setCJKfamilyfont{song}{SimSun}[AutoFakeBold=3]
-  \renewcommand*{\songti}{\CJKfamily{song}}
-\fi
+\ifhdu@times
+    \RequirePackage[T1]{fontenc}
+    \RequirePackage{times} % 正文使用 Times 系列字体 (严格意义上讲非 Times New Roman), 公式仍然保留 LaTeX 默认字体 (Latin Modern 或 Computer Modern 系列).
+    \renewcommand{\ttdefault}{txtt} % 使用 TeX Gyre 系列等宽字体
+\else\fi
+
 
 % ctex已经定义了songti, heiti, fangsong, kaishu. 
 % ctex定义命令 \zihao {⟨字号⟩}，负号代表小，如\zihao{-4}为小四字号
