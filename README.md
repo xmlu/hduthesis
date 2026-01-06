@@ -22,8 +22,8 @@ tlmgr install gbt7714
 texcount -total data/*.tex
 ```
 
-由于 Windows 系统自带字体限制，本模板在 Windows 下通过伪粗体方式加粗中文衬线字体。
-建议在 Linux 或 macOS 系统下编译，以获得更佳渲染效果。
+<!-- 由于 Windows 系统自带字体限制，本模板在 Windows 下通过伪粗体方式加粗中文衬线字体。 -->
+推荐在 Linux 或 macOS 系统下编译。
 如在 Windows 下使用，推荐通过 [WSL](https://learn.microsoft.com/zh-cn/windows/wsl/install) 环境进行编译。
 
 ### 项目结构
