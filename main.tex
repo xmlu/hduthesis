@@ -3,12 +3,13 @@
 % !TeX spellcheck = en_US
 % !BIB program = bibtex
 
-\documentclass[twoside,times]{hduthesis}
+\documentclass[twoside,fontset=fandol]{hduthesis}
 % 如果不需要双面打印时插入的空白页，可以将twoside选项改成oneside
 % 传入 legacy 切换到老版本封面, 老版封面只支持学术硕士
 % 传入 doctor 切换到博士学位论文 (只有副标题和页眉区别, 博士论文格式未经检验, 请仔细核对格式要求)
 % 传入 applied 切换到专业学位 (专业学位论文格式未经检验, 请仔细核对格式要求)
-% fontset 参数同 CTeX 的定义, 如果是 windows, 则会自动启用 fakebold 来实现加粗
+% 传入 times 切换到 Times New Roman 字体, 公式字体不变
+% fontset 参数同 CTeX 的定义, 默认为 fandol, 如果是 windows, 则会自动启用 fakebold 来实现加粗
 
 % ======= 根据自己需要加载相应宏包 ==========
 \usepackage{physics,mathrsfs} % 物理常用符号；提供mathscr: 花体
