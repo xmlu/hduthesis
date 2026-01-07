@@ -30,28 +30,6 @@
 \ProvidesClass{hduthesis}[2026/01/07 Hangzhou Dianzi University Thesis Template]
 \def\version{1.41}
 
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
-\ProcessOptions\relax
-% 正文字号为小四
-\LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese,fontset=fandol]{ctexbook}
-
-% 建议在模板开始处载入全部宏包，不要轻易改变加载顺序。
-% \pkg{hyperref} 一般在最后加载。
-\RequirePackage{gbt7714}
-\RequirePackage{filehook} %provides hooks for input files
-\RequirePackage{fancyhdr} % 页眉页脚
-\RequirePackage{titletoc}
-\RequirePackage{amsmath}
-\RequirePackage{graphicx}
-\RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}% 定理类环境宏包，其中 amsmath 选项用来兼容 AMS LaTeX 的宏包
-\RequirePackage{datetime} % 日期格式
-\RequirePackage[driver=xetex]{geometry}
-\RequirePackage{kvdefinekeys}
-\RequirePackage{kvsetkeys}
-\RequirePackage{kvoptions}
-\RequirePackage{caption}
-\RequirePackage{emptypage}
-
 % 添加参数
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{
@@ -62,8 +40,34 @@
 \DeclareBoolOption{doctor}
 \DeclareBoolOption{applied}
 \DeclareBoolOption{times}
+\DeclareStringOption[fandol]{fontset}
 \ProcessKeyvalOptions*
 
+\PassOptionsToPackage{no-math}{fontspec} % 阻止公式字体被更改，必须在 LoadClass 前设置。
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\ProcessOptions\relax
+% 正文字号为小四
+\LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese,fontset=\hdu@fontset]{ctexbook}
+
+% 建议在模板开始处载入全部宏包，不要轻易改变加载顺序。
+% \pkg{hyperref} 一般在最后加载。
+\RequirePackage{gbt7714}
+\RequirePackage{filehook} % provides hooks for input files
+\RequirePackage{fancyhdr} % 页眉页脚
+\RequirePackage{titletoc}
+\RequirePackage{amsmath,amssymb} % AMS LaTeX 宏包
+\RequirePackage{graphicx}
+\RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}% 定理类环境宏包，其中 amsmath 选项用来兼容 AMS LaTeX 的宏包
+\RequirePackage{datetime} % 日期格式
+\RequirePackage[driver=xetex]{geometry}
+\RequirePackage{kvdefinekeys}
+\RequirePackage{kvsetkeys}
+\RequirePackage{kvoptions}
+\RequirePackage{caption}
+\RequirePackage{emptypage}
+
+
+% 设置不同参数的行为
 \ifhdu@doctor
     \def\hdu@degreeLevel{博}
     \def\hdu@degreeLevelEN{Doctor}
@@ -78,15 +82,20 @@
     \def\hdu@degreeType{学术}
 \fi
 
-% ==============================================
-% 字体设置
-% ==============================================
-\ifhdu@times
-    \RequirePackage[T1]{fontenc}
-    \RequirePackage{times} % 正文使用 Times 系列字体 (严格意义上讲非 Times New Roman), 公式仍然保留 LaTeX 默认字体 (Latin Modern 或 Computer Modern 系列).
-    \renewcommand{\ttdefault}{txtt} % 使用 TeX Gyre 系列等宽字体
-\else\fi
+% 如果传入 fontset=windows, 则采用 fakebold 来实现加粗
+\ifnum\pdfstrcmp{\hdu@fontset}{windows}=0
+    \setCJKmainfont{SimSun}[AutoFakeBold=3,ItalicFont=KaiTi]%
+    \setCJKsansfont{SimHei}[AutoFakeBold=3]%
+    \setCJKmonofont{FangSong}%
+    \setCJKfamilyfont{zhsong}{SimSun}[AutoFakeBold=3]%
+    \setCJKfamilyfont{zhhei}{SimHei}[AutoFakeBold=3]%
+    \setCJKfamilyfont{zhkai}{KaiTi}%
+    \setCJKfamilyfont{zhfs}{FangSong}%
+\fi
 
+\ifhdu@times
+    \setmainfont{Times New Roman}
+\fi
 
 % ctex已经定义了songti, heiti, fangsong, kaishu. 
 % ctex定义命令 \zihao {⟨字号⟩}，负号代表小，如\zihao{-4}为小四字号
@@ -499,8 +508,8 @@
             \begin{center}
                 \renewcommand{\arraystretch}{1.3}
                 \begin{tabular}{@{}l@{~}l@{}}
-                    {\bfseries\rmfamily Candidate:} & \quad \hdu@author@en\\
-                    {\bfseries\rmfamily Supervisor:} &  \quad \hdu@supervisor@en\\
+                    {\bfseries\rmfamily Candidate:} & \quad {\bfseries\rmfamily \hdu@author@en}\\
+                    {\bfseries\rmfamily Supervisor:} &  \quad {\bfseries\rmfamily \hdu@supervisor@en}\\
                 \end{tabular}
                 \renewcommand{\arraystretch}{1}
             \end{center}
