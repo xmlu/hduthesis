@@ -3,21 +3,22 @@
 % !TeX spellcheck = en_US
 % !BIB program = bibtex
 
-\documentclass[twoside]{hduthesis}
+\documentclass[twoside,fontset=fandol]{hduthesis}
 % 如果不需要双面打印时插入的空白页，可以将twoside选项改成oneside
-% 传入 legacy 切换到老版本封面, 老板封面只支持学术硕士
+% 传入 legacy 切换到老版本封面, 老版封面只支持学术硕士
 % 传入 doctor 切换到博士学位论文 (只有副标题和页眉区别, 博士论文格式未经检验, 请仔细核对格式要求)
 % 传入 applied 切换到专业学位 (专业学位论文格式未经检验, 请仔细核对格式要求)
+% 传入 times 切换到 Times New Roman 字体, 公式字体不变
+% fontset 参数同 CTeX 的定义, 默认为 fandol, 如果是 windows, 则会自动启用 fakebold 来实现加粗
 
 % ======= 根据自己需要加载相应宏包 ==========
-\usepackage{mathrsfs}       % 提供mathscr: 花体
-\usepackage{amsmath}        % AMSLaTeX宏包 用来排出更加漂亮的公式
-\usepackage{amssymb}        % ams数学符号
-\usepackage{physics}        % 物理常用符号
-\usepackage{threeparttable} % 表格加脚注
-\usepackage{booktabs}       % 表格，横的粗线；\specialrule{1pt}{0pt}{0pt}
-\usepackage{longtable}      % 支持跨页的表格。
-\usepackage{blindtext}      % 产生测试用的文字，实际使用中可删除
+\usepackage{physics,mathrsfs} % 物理常用符号；提供mathscr: 花体
+\usepackage{threeparttable}   % 表格加脚注
+\usepackage{booktabs}         % 表格，横的粗线；\specialrule{1pt}{0pt}{0pt}
+\usepackage{longtable}        % 支持跨页的表格。
+\usepackage{blindtext}        % 产生测试用的文字，实际使用中可删除
+\usepackage{tabularx}         % 表格相关宏包，没有表格可以删除
+\usepackage{enumitem}         % 列表相关宏包，同样可以删除
 % =================================
 
 % =================================
@@ -91,6 +92,7 @@
 
 % 包含章节
 \input{data/chap01.tex}
+\input{data/font_test.tex}
 \chapter{test chapter}
 \blinddocument % 产生测试文本
 

@@ -27,31 +27,8 @@
 % 格式要求见《杭州电子科技大学研究生学位论文格式统一要求》（杭电研[2012]311号）
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{hduthesis}[2025/06/19 Hangzhou Dianzi University Thesis Template]
-\def\version{1.4}
-
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
-\ProcessOptions\relax
-% 正文字号为小四
-\LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese]{ctexbook}
-
-% 建议在模板开始处载入全部宏包，不要轻易改变加载顺序。
-% \pkg{hyperref} 一般在最后加载。
-\RequirePackage{gbt7714}
-\RequirePackage{filehook} %provides hooks for input files
-\RequirePackage{fancyhdr} % 页眉页脚
-\RequirePackage{titletoc}
-\RequirePackage{amsmath}
-\RequirePackage{graphicx}
-\RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}% 定理类环境宏包，其中 amsmath 选项用来兼容 AMS LaTeX 的宏包
-\RequirePackage{datetime} % 日期格式
-\RequirePackage[driver=xetex]{geometry}
-\RequirePackage{kvdefinekeys}
-\RequirePackage{kvsetkeys}
-\RequirePackage{kvoptions}
-\RequirePackage{caption}
-\RequirePackage{emptypage}
-\RequirePackage{ifplatform}
+\ProvidesClass{hduthesis}[2026/01/07 Hangzhou Dianzi University Thesis Template]
+\def\version{1.41}
 
 % 添加参数
 \RequirePackage{kvoptions}
@@ -62,8 +39,35 @@
 \DeclareBoolOption{legacy}
 \DeclareBoolOption{doctor}
 \DeclareBoolOption{applied}
+\DeclareBoolOption{times}
+\DeclareStringOption[fandol]{fontset}
 \ProcessKeyvalOptions*
 
+\PassOptionsToPackage{no-math}{fontspec} % 阻止公式字体被更改，必须在 LoadClass 前设置。
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\ProcessOptions\relax
+% 正文字号为小四
+\LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese,fontset=\hdu@fontset]{ctexbook}
+
+% 建议在模板开始处载入全部宏包，不要轻易改变加载顺序。
+% \pkg{hyperref} 一般在最后加载。
+\RequirePackage{gbt7714}
+\RequirePackage{filehook} % provides hooks for input files
+\RequirePackage{fancyhdr} % 页眉页脚
+\RequirePackage{titletoc}
+\RequirePackage{amsmath,amssymb} % AMS LaTeX 宏包
+\RequirePackage{graphicx}
+\RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}% 定理类环境宏包，其中 amsmath 选项用来兼容 AMS LaTeX 的宏包
+\RequirePackage{datetime} % 日期格式
+\RequirePackage[driver=xetex]{geometry}
+\RequirePackage{kvdefinekeys}
+\RequirePackage{kvsetkeys}
+\RequirePackage{kvoptions}
+\RequirePackage{caption}
+\RequirePackage{emptypage}
+
+
+% 设置不同参数的行为
 \ifhdu@doctor
     \def\hdu@degreeLevel{博}
     \def\hdu@degreeLevelEN{Doctor}
@@ -78,13 +82,19 @@
     \def\hdu@degreeType{学术}
 \fi
 
+% 如果传入 fontset=windows, 则采用 fakebold 来实现加粗
+\ifnum\pdfstrcmp{\hdu@fontset}{windows}=0
+    \setCJKmainfont{SimSun}[AutoFakeBold=3,ItalicFont=KaiTi]%
+    \setCJKsansfont{SimHei}[AutoFakeBold=3]%
+    \setCJKmonofont{FangSong}%
+    \setCJKfamilyfont{zhsong}{SimSun}[AutoFakeBold=3]%
+    \setCJKfamilyfont{zhhei}{SimHei}[AutoFakeBold=3]%
+    \setCJKfamilyfont{zhkai}{KaiTi}%
+    \setCJKfamilyfont{zhfs}{FangSong}%
+\fi
 
-% ==============================================
-% 字体设置
-% ==============================================
-\ifwindows
-  \setCJKfamilyfont{song}{SimSun}[AutoFakeBold=3]
-  \renewcommand*{\songti}{\CJKfamily{song}}
+\ifhdu@times
+    \setmainfont{Times New Roman}
 \fi
 
 % ctex已经定义了songti, heiti, fangsong, kaishu. 
@@ -498,8 +508,8 @@
             \begin{center}
                 \renewcommand{\arraystretch}{1.3}
                 \begin{tabular}{@{}l@{~}l@{}}
-                    {\bfseries\rmfamily Candidate:} & \quad \hdu@author@en\\
-                    {\bfseries\rmfamily Supervisor:} &  \quad \hdu@supervisor@en\\
+                    {\bfseries\rmfamily Candidate:} & \quad {\bfseries\rmfamily \hdu@author@en}\\
+                    {\bfseries\rmfamily Supervisor:} &  \quad {\bfseries\rmfamily \hdu@supervisor@en}\\
                 \end{tabular}
                 \renewcommand{\arraystretch}{1}
             \end{center}

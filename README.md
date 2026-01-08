@@ -22,9 +22,10 @@ tlmgr install gbt7714
 texcount -total data/*.tex
 ```
 
-由于 Windows 系统自带字体限制，本模板在 Windows 下通过伪粗体方式加粗中文衬线字体。
-建议在 Linux 或 macOS 系统下编译，以获得更佳渲染效果。
-如在 Windows 下使用，推荐通过 [WSL](https://learn.microsoft.com/zh-cn/windows/wsl/install) 环境进行编译。
+如果使用 Linux 且需要使用 Times New Roman 字体，需通过如下命令安装（Overleaf 已自带）：
+```
+sudo apt install ttf-mscorefonts-installer
+```
 
 ### 项目结构
 
@@ -77,3 +78,12 @@ texcount -total data/*.tex
 - 中国科学技术大学学位论文模版 ustcthesis
 - 杭州电子科技大学之前的硕士学位论文模版
 - 陈浩元（标准起草人）：[GB/T 7714 新标准对旧标准的主要修改及实施要点提示](http://bjxb.cessp.org.cn/ch/reader/view_abstract.aspx?file_no=20150411&flag=1)
+
+## 测试平台
+
+- **Windows 10 22H2**: XeTeX 3.141592653-2.6-0.999994 (TeX Live 2022)
+- **macOS 12.7.6 (21H1320)**: XeTeX 3.141592653-2.6-0.999996 (TeX Live 2024)
+- **Linux**:
+    - **Overleaf**: (Date: 2026-01-07)
+    - **Ubuntu-24.04 (WSL)**: XeTeX 3.141592653-2.6-0.999995 (TeX Live 2023)
+    - **Linux Mint 22.1**: XeTeX 3.141592653-2.6-0.999995 (TeX Live 2023)

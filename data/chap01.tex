@@ -4,26 +4,23 @@
 
 \section{格式标准}
 
-该模版按照~\cite{hdy2012311}要求的格式制作。
-参考文献的排版按照标准~\cite{gbt7714-2005}执行。
+该模版按照《杭州电子科技大学研究生学位论文格式统一要求》（杭电研 [2012] 311 号）~\cite{hdy2012311}要求的格式制作。
+参考文献的排版按照 GB/T 7714-2005《文后参考文献著录规则》~\cite{gbt7714-2005}执行。
 
-\section{使用方法}
+\section{文件说明}
 
-下面介绍该模版的使用方法.
-
-\subsection{文件说明}
-
-该模版包含文件结构如表~\ref{tab:file}所示。
+该模版包含文件结构如表~\ref{tab:file} 所示。
 
 \begin{table}[htp]
     \centering
     \caption{文件说明}
-    \begin{tabular}{ll}
+    \begin{tabularx}{\linewidth}{Xl}
       \toprule
       文件名          & 描述                         \\
       \midrule
       hduthesis.cls   & 模板文件                     \\
       HDULOGO.pdf     & 学校标志的图片 \\
+      HDUEMBLEM.pdf   & 学校校徽图片 \\
       main.tex & 主文件 \\
       ref.bib & BibTeX文件    \\
       data/ & 包含具体TeX文件的文件夹 \\
@@ -33,15 +30,43 @@
       data/acknowledgements.tex & 致谢 \\
       data/appendix.tex & 附录 \\
       \bottomrule
-    \end{tabular}
+    \end{tabularx}
     \label{tab:file}
   \end{table}
-  
-\subsection{编译命令}
+
+
+\section{编译命令}
 
 推荐的编译命令为``\cmd{latexmk -xelatex -synctex=1 main.tex}''。
 ``\cmd{latexmk}''命令的运行需要系统安装有Perl解释器。
 可以使用命令``\cmd{latexmk -C}''来删除编译产生的文件，可以使用命令``\cmd{latexmk -c}''来删除编译产生的临时文件。
+
+也可以使用 ``\cmd{make}'' 来编译主文件（需要安装 GNU make 工具）。
+或者直接使用 VS Code 的 ``\cmd{Recipe: latexmk (xelatex)}'' 选项（需要安装 LaTeX Workshop 插件）。
+
+
+\section{\texttt{documentclass} 的参数}
+
+在使用 \verb|\documentclass[options]{hduthesis}| 来使用本模板时，可以传入的参数如下所示：
+\begin{itemize}[nosep]
+  \item 
+    \cmd{twoside}: 开启双面打印时插入的空白页，可以传入 \cmd{oneside} 关闭。
+  \item 
+    \cmd{legacy}: 传入可切换到老版本封面，老版封面只支持学术硕士。
+  \item 
+    \cmd{doctor}: 传入可切换到博士学位论文模板。
+  \item 
+    \cmd{applied}: 传入可切换到专业学位模板。
+  \item 
+    \cmd{times}: 传入可将正文英文字体换为 Times New Roman，注意该字体字宽不同，来回切换可能会影响排版。
+  \item 
+    \cmd{fontset}: 默认为 \cmd{fandol}。
+    该参数的效果和 \CTeX 原始定义类似，这里选择参数会被传入到 \cmd{ctexbook} 类中。
+    和 \CTeX 不同的是，由于 Windows 字库中的字体没有原生加粗字体，本模板在传入 ``\cmd{fontset=windows}'' 时，会自动使用 ``伪粗体'' 实现加粗。
+    具体请见 \ref{sec:fonts} 节。
+\end{itemize}
+
+
 
 \section{插图}
 
@@ -49,12 +74,94 @@
 建议矢量图片使用 PDF 格式，比如数据可视化的绘图；
 照片应使用 JPG 格式；
 其他的栅格图应使用无损的 PNG 格式。
-注意，LaTeX 不支持 TIFF 格式；EPS 格式已经过时。
+注意，\LaTeX 不支持 TIFF 格式；EPS 格式已经过时。
 
-\begin{figure}
+如果论文较长、图片较多，可以将图片转换为 PDF 格式以提高编译速度（详见 \href{https://docs.overleaf.com/troubleshooting-and-support/fixing-and-preventing-compile-timeouts/optimising-very-large-image-files}{Overleaf 的帮助文档}）。
+
+\begin{figure}[htp]
     \centering
-    \includegraphics[width=0.5\linewidth]{example-image-a.pdf}
+    \includegraphics[width=0.6\linewidth]{example-image-a.pdf}
     \caption{示例图片标题}
     \label{fig:example}
 \end{figure}
-  
+
+
+\section{字体说明}\label{sec:fonts}
+
+根据《杭州电子科技大学研究生学位论文格式统一要求》（杭电研 [2012] 311 号）~\cite{hdy2012311}，学位论文中的英文字体应该采用 Times New Roman 字体，中文字体应该为宋体。
+\LaTeX 采用的默认字体一般为 Computer Modern 或 Latin Modern 系列字体，实际上和 Times New Roman 有一些区别。
+本模板在传入 ``\cmd{times}'' 参数时，会将正文字体切换为 Times New Roman。
+注意，Times New Roman 是一个商业字体，在多数 Linux 发行版中不自带，但是可以通过 ``\cmd{sudo apt install ttf-mscorefonts-installer}'' 自行安装（Overleaf 已自带）。
+
+但是请注意，在开启 ``\cmd{times}'' 后，``\cs{mathrm}'' 和 ``\cs{text}'' 命令的行为就不一致了，``\cs{mathrm}'' 会将字母变为 Computer Modern 系列字体，而 ``\cs{text}'' 则会将其改为 Times 系列字体。
+即 ``\cs{mathrm}'' 是改为公式字体的正体，而 ``\cs{text}'' 是改为正文字体的正体，请用户按照实际需求使用。
+而在不传入 ``\cmd{times}'' 参数时，本模板将采用 \LaTeX 的默认字体。
+
+由于官方规范~\cite{hdy2012311}并未对公式字体作出规定，本模板沿用 \LaTeX 的 Computer Modern（或 Latin Modern）默认字体，本模板沿用 \LaTeX 默认字体以保证公式的美观与可读性。
+一个公式示例如下：
+\begin{equation}
+  \mathcal{F} = \tr(\rho L^2),\quad \dv{\rho}{\theta}=\frac12\qty(L \rho  + \rho L).
+\end{equation}
+以及希腊字母：
+\begin{equation}
+  \begin{aligned}
+    & \alpha\, \beta\, \gamma\, \delta\, \epsilon\, \zeta\, \eta\, \theta\, \iota\, \kappa\, \lambda\, \mu\, \nu\, \xi\, \pi\, \rho\, \sigma\, \tau\, \upsilon\, \phi\, \chi\, \psi\, \omega \\
+    & \Gamma\, \Delta\, \Theta\, \Lambda\, \Xi\, \Pi\, \Sigma\, \Upsilon\, \Phi\, \Psi\, \Omega
+  \end{aligned}
+\end{equation}
+
+官方规范~\cite{hdy2012311}要求使用宋体，但未限定具体版本。
+考虑国人习惯，一般可以将其理解为是中易宋体（SimSun）。
+鉴于 SimSun 缺少原生粗体且存在平台依赖，本模板默认使用 ``\cmd{fontset=fandol}'' 字体集。
+本模板保留了 ``\cmd{fontset=windows}'' 选项，并仿照\href{https://github.com/tuna/thuthesis}{清华大学学位论文模板（thuthesis）}使用 ``\cmd{fakebold=3}'' 加粗。
+
+thuthesis 推荐使用 ``\cmd{fontset=windows}'' 在 Windows 平台下编译最终版以使用 SimSun 字体。
+
+
+
+\section{常见问题}
+
+\begin{itemize}[nosep]
+  \item [Q1:] 
+    参考文献作者姓名是全大写的，怎么更改为仅首字大写的样式？
+  \item [A1:] 
+    根据《杭州电子科技大学研究生学位论文格式统一要求》（杭电研 [2012] 311 号）~\cite{hdy2012311}，参考文献著录应遵循 GB/T 7714-2005《文后参考文献著录规则》~\cite{gbt7714-2005}。
+    在该标准中，对作者姓名的大小写未作明确规定，可采用首字母大写或全部大写。
+    依据现行标准 GB/T 7714-2015，作者姓名应全部大写。
+    本模板只支持作者姓名全部大写的格式，如需将作者姓名修改为首字母大写，请自行调整。（最后更新：2025 年 9 月 11 日）
+
+  \smallskip
+  \item [Q2:] 
+    生成的参考文献中出现了多余的 URL 和 DOI 信息。
+  \item [A2:]
+    手动在\ .bib 文件中删掉 URL 和 DOI 条目。
+
+  \smallskip
+  \item [Q3:]
+    注音字母怎么没有大写？
+    例如 Cram\'er 为什么显示为了 CRAM\'eR 而不是 CRAM\'ER？
+  \item [A3:]
+    请在\ .bib 文件中把注音字母 \texttt{\'e} 换为 \verb|\'e|。
+
+  \smallskip
+  \item [Q4:]
+    physics 宏包？
+  \item [A4:] 
+    本模板默认使用了 ``\verb|\usepackage{physics}|''，这是一个数学物理领域非常常用的宏包，定义了大量方便的宏。
+    具体的宏定义可以在 shell 或终端中输入 ``\verb|texdoc physics|'' 查看官方文档。
+
+\end{itemize}
+
+
+\section{测试平台}
+
+\begin{itemize}[nosep]
+  \item \textbf{Windows 10 22H2}: XeTeX 3.141592653-2.6-0.999994 (TeX Live 2022)
+  \item \textbf{macOS 12.7.6 (21H1320)}: XeTeX 3.141592653-2.6-0.999996 (TeX Live 2024)
+  \item \textbf{Linux}:
+    \begin{itemize}[nosep]
+      \item \textbf{Overleaf}: (Date: 2026-01-07)
+      \item \textbf{Ubuntu-24.04 (WSL)}: XeTeX 3.141592653-2.6-0.999995 (TeX Live 2023)
+      \item \textbf{Linux Mint 22.1}: XeTeX 3.141592653-2.6-0.999995 (TeX Live 2023)
+    \end{itemize}
+\end{itemize}
