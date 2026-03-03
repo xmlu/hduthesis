@@ -29,7 +29,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{hduthesis}[2026/01/07 Hangzhou Dianzi University Thesis Template]
-\def\version{1.41}
+\def\version{1.42}
 
 % 添加参数
 \RequirePackage{kvoptions}
