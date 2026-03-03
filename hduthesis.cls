@@ -1,5 +1,6 @@
 % 杭州电子科技大学研究生论文LaTeX模版
 % 最新版的模版可以在此获得： https://gitee.com/xmlu/hduthesis
+% 由杭州电子科技大学量子精密测量实验室编写和维护，欢迎反馈任何问题和建议。
 
 % MIT License
 %
@@ -40,6 +41,7 @@
 \DeclareBoolOption{doctor}
 \DeclareBoolOption{applied}
 \DeclareBoolOption{times}
+\DeclareBoolOption{blind}
 \DeclareStringOption[fandol]{fontset}
 \ProcessKeyvalOptions*
 
@@ -81,6 +83,10 @@
 \else
     \def\hdu@degreeType{学术}
 \fi
+
+\newcommand\hdu@anon@zh[1]{\ifhdu@blind 匿名\else #1\fi}
+\newcommand\hdu@anon@en[1]{\ifhdu@blind Anonymous\else #1\fi}
+\newcommand\hdu@anon@id[1]{\ifhdu@blind\relax\else #1\fi}
 
 % 如果传入 fontset=windows, 则采用 fakebold 来实现加粗
 \ifnum\pdfstrcmp{\hdu@fontset}{windows}=0
@@ -132,7 +138,11 @@
 % =======================
 \fancypagestyle{plain}{
     \fancyhf{}
-    \fancyhead[C]{\songti \zihao{5} \selectfont 杭州电子科技大学\hdu@degreeLevel 士学位论文}%
+    \ifhdu@blind
+        \fancyhead{}
+    \else
+        \fancyhead[C]{\songti \zihao{5} \selectfont 杭州电子科技大学\hdu@degreeLevel 士学位论文}%
+    \fi
     \fancyfoot[C,C]{\zihao{5} ~\thepage~}
 }
 
@@ -332,11 +342,11 @@
                 \renewcommand{\arraystretch}{1.5} 
                 \begin{tabular}{ll}
                     {\songti\bfseries 研\hfill 究\hfill 生} & 
-                    \HDUunderline[220pt]{\kaishu \hdu@author} \\ 
+                    \HDUunderline[220pt]{\kaishu \hdu@anon@zh{\hdu@author}} \\ 
                     {\songti\bfseries 专\hfill 业}  & 
                     \HDUunderline[220pt]{\kaishu \hdu@discipline} \\
                     {\songti\bfseries 指导教师} & 
-                    \HDUunderline[220pt]{\kaishu \hdu@supervisor}
+                    \HDUunderline[220pt]{\kaishu \hdu@anon@zh{\hdu@supervisor}}
                 \end{tabular} 
                 \renewcommand{\arraystretch}{1}
             \end{center} 
@@ -359,16 +369,18 @@
         \noindent
         \makebox[\textwidth]{
             \hspace*{0pt}
-            {\zihao{-4}学号：\HDUunderline[22mm]{\textsf{\hdu@studentID}}}
+            {\zihao{-4}学号：\HDUunderline[22mm]{\textsf{\hdu@anon@id{\hdu@studentID}}}}
             \hfill
             {\zihao{-4}学校代码：\HDUunderline[22mm]{\textsf{10336}}}
         }
+        \ifhdu@blind\else
         \ifx\hdu@secretLevel\@empty\else
             \makebox[\textwidth]{
                 \smallskip
                 \hspace*{0pt}
                 {\zihao{-4}密级：\HDUunderline[22mm]{\textsf{\hdu@secretLevel}}}\hfill
             }
+        \fi
         \fi
         \vspace{1cm} 
 
@@ -404,12 +416,12 @@
             \renewcommand{\arraystretch}{1.5} 
             \begin{tabular}{ll}
                 {\songti 作\hfill 者\hfill 姓\hfill 名：} & 
-                \HDUunderline[65mm]{\hdu@author} \\ 
+                \HDUunderline[65mm]{\hdu@anon@zh{\hdu@author}} \\ 
                 {\songti 指\hfill 导\hfill 教\hfill 师：} & 
-                \HDUunderline[65mm]{\hdu@supervisor} \\ 
+                \HDUunderline[65mm]{\hdu@anon@zh{\hdu@supervisor}} \\ 
                 \ifx\hdu@supervisorB\@empty\else
                     {\songti 第\hfill 二\hfill 导\hfill 师：} & 
-                    \HDUunderline[65mm]{\hdu@supervisorB} \\ 
+                    \HDUunderline[65mm]{\hdu@anon@zh{\hdu@supervisorB}} \\ 
                 \fi
                 \ifhdu@applied
                     {专业学位类别：} & 
@@ -421,7 +433,7 @@
                     \HDUunderline[65mm]{\hdu@discipline} \\ 
                 \fi
                 {\songti 所\hfill 在\hfill 学\hfill 院：} &
-                \HDUunderline[65mm]{\hdu@school} \\ 
+                \HDUunderline[65mm]{\hdu@anon@zh{\hdu@school}} \\ 
                 {\songti 完\hfill 成\hfill 时\hfill 间：} &
                 \HDUunderline[65mm]{\hdu@date}
             \end{tabular} 
@@ -461,8 +473,8 @@
         \begin{center} 
             \renewcommand{\arraystretch}{1.62} 
             \begin{tabular}{l@{：}l}
-                {\songti\textbf{研\hfill 究\hfill 生}} & {\kaishu \hdu@author}\\
-                {\songti\textbf{指导教师}} & {\kaishu \hdu@supervisor}
+                {\songti\textbf{研\hfill 究\hfill 生}} & {\kaishu \hdu@anon@zh{\hdu@author}}\\
+                {\songti\textbf{指导教师}} & {\kaishu \hdu@anon@zh{\hdu@supervisor}}
             \end{tabular} 
         \renewcommand{\arraystretch}{1}
       \end{center}
@@ -508,8 +520,8 @@
             \begin{center}
                 \renewcommand{\arraystretch}{1.3}
                 \begin{tabular}{@{}l@{~}l@{}}
-                    {\bfseries\rmfamily Candidate:} & \quad {\bfseries\rmfamily \hdu@author@en}\\
-                    {\bfseries\rmfamily Supervisor:} &  \quad {\bfseries\rmfamily \hdu@supervisor@en}\\
+                    {\bfseries\rmfamily Candidate:} & \quad {\bfseries\rmfamily \hdu@anon@en{\hdu@author@en}}\\
+                    {\bfseries\rmfamily Supervisor:} &  \quad {\bfseries\rmfamily \hdu@anon@en{\hdu@supervisor@en}}\\
                 \end{tabular}
                 \renewcommand{\arraystretch}{1}
             \end{center}
@@ -738,13 +750,23 @@
 }
 
 \AtBeginDocument{%
-    \hypersetup{
-        pdftitle    = \hdu@title,
-        pdfauthor   = \hdu@author,
-        % pdfsubject  = \hdu@degree@name,
-        pdfkeywords = \hdu@keywords,
-        pdfcreator={hduthesis-v\version},
-    }%
+    \ifhdu@blind
+        \hypersetup{
+            pdftitle    = \hdu@title,
+            pdfauthor   = Anonymous,
+            % pdfsubject  = \hdu@degree@name,
+            pdfkeywords = {},
+            pdfcreator={hduthesis-v\version},
+        }%
+    \else
+        \hypersetup{
+            pdftitle    = \hdu@title,
+            pdfauthor   = \hdu@author,
+            % pdfsubject  = \hdu@degree@name,
+            pdfkeywords = \hdu@keywords,
+            pdfcreator={hduthesis-v\version},
+        }%
+    \fi
     \songti\zihao{-4}
     \setlength{\baselineskip}{20bp}
     \selectfont
