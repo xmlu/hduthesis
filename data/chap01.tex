@@ -28,7 +28,8 @@
       data/chap01.tex & 第一章的TeX文件（建议每章一个TeX文件）\\
       data/abstract.tex & 中英文摘要 \\
       data/acknowledgements.tex & 致谢 \\
-      data/appendix.tex & 附录 \\
+      data/appendix.tex & 附录（其实是学术成果页） \\
+      data/appendix\_blind.tex & 盲审用的学术成果页 \\
       \bottomrule
     \end{tabularx}
     \label{tab:file}
@@ -64,6 +65,8 @@
     该参数的效果和 \CTeX 原始定义类似，这里选择参数会被传入到 \cmd{ctexbook} 类中。
     和 \CTeX 不同的是，由于 Windows 字库中的字体没有原生加粗字体，本模板在传入 ``\cmd{fontset=windows}'' 时，会自动使用 ``伪粗体'' 实现加粗。
     具体请见 \ref{sec:fonts} 节。
+  \item 
+    \cmd{blind}: 传入该参数使用盲审模版。注意盲审模版还需要手动将 \cmd{oneside} 改成 \cmd{twoside}，因为盲审要求不包含空白页。也可以编译完成后，手动使用 PDF 编辑软件删除空白页。
 \end{itemize}
 
 

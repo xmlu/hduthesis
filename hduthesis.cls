@@ -73,6 +73,7 @@
 \RequirePackage{kvoptions}
 \RequirePackage{caption}
 \RequirePackage{emptypage}
+\RequirePackage{ifplatform} % 判断平台
 
 
 % 设置不同参数的行为
@@ -94,8 +95,21 @@
 \newcommand\hdu@anon@en[1]{\ifhdu@blind Anonymous\else #1\fi}
 \newcommand\hdu@anon@id[1]{\ifhdu@blind\relax\else #1\fi}
 
-% 如果传入 fontset=windows, 则采用 fakebold 来实现加粗
+\def\hdu@is@windows{0}
+
 \ifnum\pdfstrcmp{\hdu@fontset}{windows}=0
+    \def\hdu@is@windows{1}
+\fi
+
+% 如果没传入 fontset 但是在 windows 平台上, 则采用 fakebold 来实现加粗
+\ifx\hdu@fontset\@empty
+    \ifwindows
+        \def\hdu@is@windows{1}
+    \fi
+\fi
+
+% 如果传入 fontset=windows, 也采用 fakebold 来实现加粗
+\ifnum\hdu@is@windows=1
     \setCJKmainfont{SimSun}[AutoFakeBold=3,ItalicFont=KaiTi]%
     \setCJKsansfont{SimHei}[AutoFakeBold=3]%
     \setCJKmonofont{FangSong}%
