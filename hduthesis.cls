@@ -29,7 +29,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{hduthesis}[2026/01/07 Hangzhou Dianzi University Thesis Template]
-\def\version{1.42}
+\def\version{1.5}
 
 % 添加参数
 \RequirePackage{kvoptions}
@@ -42,14 +42,20 @@
 \DeclareBoolOption{applied}
 \DeclareBoolOption{times}
 \DeclareBoolOption{blind}
-\DeclareStringOption[fandol]{fontset}
+\DeclareStringOption{fontset}
 \ProcessKeyvalOptions*
+
 
 \PassOptionsToPackage{no-math}{fontspec} % 阻止公式字体被更改，必须在 LoadClass 前设置。
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
 % 正文字号为小四
-\LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese,fontset=\hdu@fontset]{ctexbook}
+\ifx\hdu@fontset\@empty
+  \LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese]{ctexbook}
+\else
+  \LoadClass[a4paper,UTF8,zihao=-4,scheme=chinese,fontset=\hdu@fontset]{ctexbook}
+\fi
+
 
 % 建议在模板开始处载入全部宏包，不要轻易改变加载顺序。
 % \pkg{hyperref} 一般在最后加载。
@@ -67,6 +73,7 @@
 \RequirePackage{kvoptions}
 \RequirePackage{caption}
 \RequirePackage{emptypage}
+\RequirePackage{ifplatform} % 判断平台
 
 
 % 设置不同参数的行为
@@ -88,8 +95,21 @@
 \newcommand\hdu@anon@en[1]{\ifhdu@blind Anonymous\else #1\fi}
 \newcommand\hdu@anon@id[1]{\ifhdu@blind\relax\else #1\fi}
 
-% 如果传入 fontset=windows, 则采用 fakebold 来实现加粗
+\def\hdu@is@windows{0}
+
 \ifnum\pdfstrcmp{\hdu@fontset}{windows}=0
+    \def\hdu@is@windows{1}
+\fi
+
+% 如果没传入 fontset 但是在 windows 平台上, 则采用 fakebold 来实现加粗
+\ifx\hdu@fontset\@empty
+    \ifwindows
+        \def\hdu@is@windows{1}
+    \fi
+\fi
+
+% 如果传入 fontset=windows, 也采用 fakebold 来实现加粗
+\ifnum\hdu@is@windows=1
     \setCJKmainfont{SimSun}[AutoFakeBold=3,ItalicFont=KaiTi]%
     \setCJKsansfont{SimHei}[AutoFakeBold=3]%
     \setCJKmonofont{FangSong}%
@@ -140,6 +160,7 @@
     \fancyhf{}
     \ifhdu@blind
         \fancyhead{}
+        \renewcommand{\headrulewidth}{0pt}
     \else
         \fancyhead[C]{\songti \zihao{5} \selectfont 杭州电子科技大学\hdu@degreeLevel 士学位论文}%
     \fi
@@ -278,6 +299,10 @@
     secretLevel = {
         default = {},
     },
+    % 盲审封面新增选项
+    researchFields = {
+        default = {}
+    },
     % 专业硕士/博士学位论文参数
     degreeCategory = {
         default = {},
@@ -295,12 +320,39 @@
   \cleardoublepage
   \pagestyle{empty}%
   \hdu@cover % 封面
+  \ifhdu@blind\else
   \hdu@title@page@graduate@zh % 中文扉页
   \hdu@title@page@graduate@en % 英文扉页
   \cleardoublepage 
   \hdu@title@page@originality % 原创性声明和使用授权声明
   \cleardoublepage
+  \fi
 }
+
+% ===========================================
+% 后置部分，致谢和攻读博士/硕士学位期间取得的研究成果
+% ===========================================
+\AtEndDocument{
+    \ifhdu@blind
+        \chapter*{}
+        \begin{center}
+            \heiti\fontsize{18pt}{24pt}\selectfont 攻读\hdu@degreeLevel 士学位期间取得的研究成果
+        \end{center}
+        \addcontentsline{toc}{chapter}{攻读\hdu@degreeLevel 士学位期间取得的研究成果}
+        \input{data/appendix_blind.tex}
+    \else
+        \chapter*{附录}
+        \addcontentsline{toc}{chapter}{附录}
+
+        \begin{center}
+            作者在读期间发表的学术论文及参加的科研项目
+        \end{center}
+
+        \input{data/appendix.tex}
+        \input{data/acknowledgements.tex} 
+    \fi
+}
+
 
 % ==============================
 %  封面
@@ -360,8 +412,30 @@
         }
     }
 
-% 新版封面 (2025 年更新)
 \else
+    % 盲审封面 (2026 年更新)
+    \ifhdu@blind
+        \newcommand\hdu@cover{%
+            \begingroup
+            \noindent\raggedright\zihao{-2}
+            \thispagestyle{empty}
+            {\hspace{-5mm}\zihao{5}\bfseries $\bigstar$\hspace{0.02em}全日制\hdu@degreeType 学位研究生\par}
+            \vspace{25mm}
+            {\fontsize{30bp}{36bp}\bfseries 浙~~江~~省~~\hdu@degreeLevel~~士~~学~~位~~论~~文\par}
+            \vspace{32mm}
+            \renewcommand{\arraystretch}{3}
+            \begin{tabular}{@{}ll}
+                {\bfseries 论文题目：} & {\bfseries \hdu@titleA} \\[-18mm]
+                                            & {\bfseries \hdu@titleB} \\
+                {\bfseries 专业名称：} & {\bfseries \hdu@discipline} \\
+                {\bfseries 研究方向：} & {\bfseries \hdu@researchFields}
+            \end{tabular}
+            \vfill
+            \endgroup
+        }
+
+    \else
+    % 新版封面 (2025 年更新)
     \newcommand\hdu@cover{
         \thispagestyle{empty}
 
@@ -369,18 +443,16 @@
         \noindent
         \makebox[\textwidth]{
             \hspace*{0pt}
-            {\zihao{-4}学号：\HDUunderline[22mm]{\textsf{\hdu@anon@id{\hdu@studentID}}}}
+            {\zihao{-4}学号：\HDUunderline[22mm]{\textsf{\hdu@studentID}}}
             \hfill
             {\zihao{-4}学校代码：\HDUunderline[22mm]{\textsf{10336}}}
         }
-        \ifhdu@blind\else
         \ifx\hdu@secretLevel\@empty\else
             \makebox[\textwidth]{
                 \smallskip
                 \hspace*{0pt}
                 {\zihao{-4}密级：\HDUunderline[22mm]{\textsf{\hdu@secretLevel}}}\hfill
             }
-        \fi
         \fi
         \vspace{1cm} 
 
@@ -416,12 +488,12 @@
             \renewcommand{\arraystretch}{1.5} 
             \begin{tabular}{ll}
                 {\songti 作\hfill 者\hfill 姓\hfill 名：} & 
-                \HDUunderline[65mm]{\hdu@anon@zh{\hdu@author}} \\ 
+                \HDUunderline[65mm]{\hdu@author} \\ 
                 {\songti 指\hfill 导\hfill 教\hfill 师：} & 
-                \HDUunderline[65mm]{\hdu@anon@zh{\hdu@supervisor}} \\ 
+                \HDUunderline[65mm]{\hdu@supervisor} \\ 
                 \ifx\hdu@supervisorB\@empty\else
                     {\songti 第\hfill 二\hfill 导\hfill 师：} & 
-                    \HDUunderline[65mm]{\hdu@anon@zh{\hdu@supervisorB}} \\ 
+                    \HDUunderline[65mm]{\hdu@supervisorB} \\ 
                 \fi
                 \ifhdu@applied
                     {专业学位类别：} & 
@@ -433,7 +505,7 @@
                     \HDUunderline[65mm]{\hdu@discipline} \\ 
                 \fi
                 {\songti 所\hfill 在\hfill 学\hfill 院：} &
-                \HDUunderline[65mm]{\hdu@anon@zh{\hdu@school}} \\ 
+                \HDUunderline[65mm]{\hdu@school} \\ 
                 {\songti 完\hfill 成\hfill 时\hfill 间：} &
                 \HDUunderline[65mm]{\hdu@date}
             \end{tabular} 

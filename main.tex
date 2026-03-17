@@ -3,8 +3,8 @@
 % !TeX spellcheck = en_US
 % !BIB program = bibtex
 
-\documentclass[twoside,fontset=fandol]{hduthesis}
-% 如果不需要双面打印时插入的空白页，可以将twoside选项改成oneside
+\documentclass[fontset=fandol,twoside]{hduthesis}
+% 如果不需要双面打印时插入的空白页，可以将twoside选项改成oneside （盲审版需要改为 oneside）
 % 传入 legacy 切换到老版本封面, 老版封面只支持学术硕士
 % 传入 doctor 切换到博士学位论文 (只有副标题和页眉区别, 博士论文格式未经检验, 请仔细核对格式要求)
 % 传入 applied 切换到专业学位 (专业学位论文格式未经检验, 请仔细核对格式要求)
@@ -15,7 +15,10 @@
 %   3) PDF 元数据中的 author 匿名、keywords 清空；
 %   4) 盲审模式下密级行不显示。
 % 使用方式：送审稿保留 blind；最终稿提交前删除 blind。
-% fontset 参数同 CTeX 的定义, 默认为 fandol, 如果是 windows, 则会自动启用 fakebold 来实现加粗
+
+% fontset 参数同 CTeX 的定义. 但如果是 windows, 则会自动启用 fakebold 来实现加粗 (该功能由本模版提供)
+% 注意: 模版使用 fandol 字体集以保证跨平台一致性, 但 fandol 并不齐全, 如果发现出现缺字, 请删掉 fontset=fandol 或者设置其他字体集.
+
 
 % ======= 根据自己需要加载相应宏包 ==========
 \usepackage{physics,mathrsfs} % 物理常用符号；提供mathscr: 花体
@@ -75,6 +78,8 @@
     degreeCategory = {}, % 默认留空
     % 专业领域 (专业学位)
     field = {}, % 默认留空
+    % ======== 盲审封面需要的研究方向 ========
+    researchFields = {量子精密测量},
 }
 % =================================
 
@@ -108,11 +113,6 @@
 \phantomsection
 \addcontentsline{toc}{chapter}{参考文献}
 \bibliographystyle{gbt7714-2005-numerical}
-\bibliography{ref}  % 参考文献BibTeX文件名称，默认为ref.bib
-
-% 附录，所发文章与参与项目
-\input{data/appendix.tex}  
-% 致谢
-\input{data/acknowledgements.tex} 
+\bibliography{ref}
 
 \end{document}

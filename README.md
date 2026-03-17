@@ -78,6 +78,12 @@ sudo apt install ttf-mscorefonts-installer
   依据现行标准 GB/T 7714-2015，作者姓名应全部大写。
   本模板只支持作者姓名全部大写的格式，如需将作者姓名修改为首字母大写，请自行调整。（最后更新：2025 年 9 月 11 日）
 
+- **出现缺字方块（俗称豆腐块）**：模版默认使用 `fandol` 字体集以确保跨平台一致性，但其字库（GBK 标准）不全。若遇到生僻字无法显示，请在 `main.tex` 首行将 `fontset=fandol` 删去, 或修改为其他字库。
+   ```latex
+   % 将 fandol 改为其他字体集 或删掉 fontset 这个参数
+   \documentclass[fontset=windows]{hduthesis}
+   ```
+
 ## 参考资料
 
 - CTeX
