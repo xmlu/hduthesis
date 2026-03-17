@@ -15,7 +15,10 @@
 %   3) PDF 元数据中的 author 匿名、keywords 清空；
 %   4) 盲审模式下密级行不显示。
 % 使用方式：送审稿保留 blind；最终稿提交前删除 blind。
-% fontset 参数同 CTeX 的定义, 默认为 fandol, 如果是 windows, 则会自动启用 fakebold 来实现加粗
+
+% fontset 参数同 CTeX 的定义, 默认为 auto. 但如果是 windows, 则会自动启用 fakebold 来实现加粗
+% 注意: 模版使用 fandol 字体集以保证跨平台一致性, 但 fandol 并不齐全, 如果发现出现缺字, 请换用 auto (删掉 fontset=fandol) 或者其他字体集.
+
 
 % ======= 根据自己需要加载相应宏包 ==========
 \usepackage{physics,mathrsfs} % 物理常用符号；提供mathscr: 花体
