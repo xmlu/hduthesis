@@ -770,7 +770,7 @@
         aftername  = \hspace{\ccwd},
     },
     subsection = {
-        format     = \heiti\zihao{4}\selectfont,
+        format     = \heiti\zihao{-4}\selectfont,
         aftername  = \hspace{\ccwd},
    },
 }
