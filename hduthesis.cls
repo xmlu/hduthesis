@@ -402,21 +402,22 @@
     % 盲审封面 (2026 年更新)
     \ifhdu@blind
         \newcommand\hdu@cover{%
+            \begingroup
+            \noindent\raggedright\zihao{-2}
             \thispagestyle{empty}
-            \zihao{-2}
-            \noindent\raggedright
             {\hspace{-5mm}\zihao{5}\bfseries $\bigstar$\hspace{0.02em}全日制\hdu@degreeType 学位研究生\par}
             \vspace{25mm}
             {\fontsize{30bp}{36bp}\bfseries 浙~~江~~省~~\hdu@degreeLevel~~士~~学~~位~~论~~文\par}
             \vspace{32mm}
-            {\renewcommand{\arraystretch}{3}
+            \renewcommand{\arraystretch}{3}
             \begin{tabular}{@{}ll}
                 {\bfseries 论文题目：} & {\bfseries \hdu@titleA} \\[-18mm]
                                             & {\bfseries \hdu@titleB} \\
                 {\bfseries 专业名称：} & {\bfseries \hdu@discipline} \\
                 {\bfseries 研究方向：} & {\bfseries \hdu@researchFields}
             \end{tabular}
-            \vfill}
+            \vfill
+            \endgroup
         }
 
     \else
